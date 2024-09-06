@@ -26,5 +26,16 @@ public class UsuarioService {
                 () -> new ObjectNotFoundException("Usuario nao encontrado: ", id));
     }
 
+    public void deletarUsuario (Long id){
+        Usuario usuario =  usuarioRepository.findById(id).orElseThrow(
+                () -> new ObjectNotFoundException("Usuario nao encontrado: ", id)
+        );
+          usuarioRepository.deleteById(id);
+    }
+
+    public Usuario atualizarUsuario (Long id, Usuario usuario){
+        Usuario usuarioExistente = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado com o id: " + id));
+        return usuarioRepository.save(usuarioExistente);
+    }
 
 }

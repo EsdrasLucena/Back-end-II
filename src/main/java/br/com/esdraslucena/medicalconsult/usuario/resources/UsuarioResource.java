@@ -34,5 +34,17 @@ public class UsuarioResource {
         return ResponseEntity.ok().body(usuario);
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deletarUsuario(@PathVariable Long id){
+        usuarioService.deletarUsuario(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario){
+        Usuario usuarioAtualizado = usuarioService.atualizarUsuario(id, usuario);
+        return ResponseEntity.ok().body(usuarioAtualizado);
+    }
+
 
 }
