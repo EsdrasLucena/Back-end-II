@@ -1,10 +1,12 @@
 package br.com.esdraslucena.medicalconsult.usuario.domain;
 
+import br.com.esdraslucena.medicalconsult.consulta.domain.Consulta;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import javax.annotation.processing.Generated;
+import java.security.Permission;
 import java.util.Date;
+import java.util.List;
 
 @Data //gera os getters e setters
 @Entity //é uma entidade no meu banco de dados
@@ -26,7 +28,11 @@ public class Usuario {
     @Column(name = "DATA_NASCIMENTO")
     private Date dataNascimento;
     //private Permissao permissao;
+    @Column(name="PERMISSAO")
+    private Permission permissao;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Consulta> consultas;
 
     //Construtor com variaveis
     public Usuario(Long idUsuario, String nomeUsuario, String email, String cpf, String telefone, Date dataNascimento) {
