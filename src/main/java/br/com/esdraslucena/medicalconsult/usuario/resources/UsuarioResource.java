@@ -27,7 +27,7 @@ public class UsuarioResource {
        List<Usuario> usuarios = usuarioService.listarUsuarios();
        return ResponseEntity.ok().body(usuarios);
     }
-
+//lelis19
     @GetMapping(value = "/{id}") //é um get mas tem que dizer que recebe id
     public ResponseEntity<Usuario> buscarUsuario(@PathVariable Long id){ //path variable pq recebe id no getmapping
         Usuario usuario = usuarioService.buscarUsuario(id);

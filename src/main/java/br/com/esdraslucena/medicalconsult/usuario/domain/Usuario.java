@@ -27,21 +27,21 @@ public class Usuario {
     private String telefone;
     @Column(name = "DATA_NASCIMENTO")
     private Date dataNascimento;
-    //private Permissao permissao;
     @Column(name="PERMISSAO")
-    private Permission permissao;
+    private Permissao permissao;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Consulta> consultas;
 
     //Construtor com variaveis
-    public Usuario(Long idUsuario, String nomeUsuario, String email, String cpf, String telefone, Date dataNascimento) {
+    public Usuario(Long idUsuario, String nomeUsuario, String email, String cpf, String telefone, Date dataNascimento, Permissao permissao) {
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
         this.email = email;
         this.cpf = cpf;
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
+        this.permissao = permissao;
     }
 
     public Usuario() { //Construtor vazio

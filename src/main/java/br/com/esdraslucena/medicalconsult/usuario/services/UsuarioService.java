@@ -2,6 +2,7 @@ package br.com.esdraslucena.medicalconsult.usuario.services;
 
 import br.com.esdraslucena.medicalconsult.usuario.domain.Usuario;
 import br.com.esdraslucena.medicalconsult.usuario.repositories.UsuarioRepository;
+import jakarta.persistence.Id;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,8 +35,15 @@ public class UsuarioService {
     }
 
     public Usuario atualizarUsuario (Long id, Usuario usuario){
-        Usuario usuarioExistente = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado com o id: " + id));
-        return usuarioRepository.save(usuarioExistente);
+        //Usuario usuarioExistente = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado com o id: " + id));
+        Usuario upUsuario = buscarUsuario(id);
+        upUsuario.setNomeUsuario(usuario.getNomeUsuario());
+        upUsuario.setEmail(usuario.getEmail());
+        upUsuario.setCpf(usuario.getCpf());
+        upUsuario.setTelefone(usuario.getTelefone());
+        upUsuario.setDataNascimento(usuario.getDataNascimento());
+        upUsuario.setPermissao(usuario.getPermissao());
+        return usuarioRepository.save(upUsuario);
     }
 
 }

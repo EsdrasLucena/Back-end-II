@@ -1,6 +1,7 @@
 package br.com.esdraslucena.medicalconsult.consulta.domain;
 
 import br.com.esdraslucena.medicalconsult.usuario.domain.Usuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,6 +26,8 @@ public class Consulta {
 
     @Column(name = "PROFISSIONAL")
     private String profissional;
+
+    @JsonIgnore
 
     @ManyToOne
     @JoinColumn(name = "idUsuario")
