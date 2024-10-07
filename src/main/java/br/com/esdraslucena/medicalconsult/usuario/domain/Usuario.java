@@ -1,6 +1,7 @@
 package br.com.esdraslucena.medicalconsult.usuario.domain;
 
 import br.com.esdraslucena.medicalconsult.consulta.domain.Consulta;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -29,6 +30,8 @@ public class Usuario {
     private Date dataNascimento;
     @Column(name="PERMISSAO")
     private Permissao permissao;
+
+    @JsonIgnore
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Consulta> consultas;

@@ -1,0 +1,249 @@
+openapi: 3.0.1
+info:
+  title: Gerenciador de consultas
+  version: v0
+servers:
+  - url: http://localhost:8080
+    description: Gerenciador de consultas
+paths:
+  /usuarios/{id}:
+    get:
+      tags:
+        - usuario-resource
+      operationId: buscarUsuario
+      summary: "Busca um usuário pelo ID"
+      description: "Retorna os detalhes de um usuário específico com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Usuario"
+    put:
+      tags:
+        - usuario-resource
+      operationId: atualizarUsuario
+      summary: "Atualiza um usuário pelo ID"
+      description: "Atualiza as informações de um usuário existente com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Usuario"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Usuario"
+    delete:
+      tags:
+        - usuario-resource
+      operationId: deletarUsuario
+      summary: "Deleta um usuário pelo ID"
+      description: "Remove um usuário existente com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: "OK"
+
+  /consultas/{id}:
+    get:
+      tags:
+        - consulta-resource
+      operationId: buscarConsulta
+      summary: "Busca uma consulta pelo ID"
+      description: "Retorna os detalhes de uma consulta específica com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Consulta"
+    put:
+      tags:
+        - consulta-resource
+      operationId: atualizarConsulta
+      summary: "Atualiza uma consulta pelo ID"
+      description: "Atualiza as informações de uma consulta existente com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Consulta"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Consulta"
+    delete:
+      tags:
+        - consulta-resource
+      operationId: deletarConsulta
+      summary: "Deleta uma consulta pelo ID"
+      description: "Remove uma consulta existente com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: "OK"
+
+  /usuarios:
+    get:
+      tags:
+        - usuario-resource
+      operationId: listarUsuarios
+      summary: "Lista todos os usuários"
+      description: "Retorna uma lista de todos os usuários registrados."
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Usuario"
+    post:
+      tags:
+        - usuario-resource
+      operationId: cadastrarUsuario
+      summary: "Cadastra um novo usuário"
+      description: "Cria um novo usuário com as informações fornecidas."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Usuario"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Usuario"
+
+  /consultas:
+    get:
+      tags:
+        - consulta-resource
+      operationId: listarConsulta
+      summary: "Lista todas as consultas"
+      description: "Retorna uma lista de todas as consultas registradas."
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Consulta"
+    post:
+      tags:
+        - consulta-resource
+      operationId: cadastrarConsulta
+      summary: "Cadastra uma nova consulta"
+      description: "Cria uma nova consulta com as informações fornecidas."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Consulta"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Consulta"
+
+components:
+  schemas:
+    Consulta:
+      type: object
+      properties:
+        idConsulta:
+          type: integer
+          format: int64
+        dataConsulta:
+          type: string
+          format: date-time
+        especialidade:
+          type: string
+        profissional:
+          type: string
+    Usuario:
+      type: object
+      properties:
+        idUsuario:
+          type: integer
+          format: int64
+        nomeUsuario:
+          type: string
+        email:
+          type: string
+        cpf:
+          type: string
+        telefone:
+          type: string
+        dataNascimento:
+          type: string
+          format: date-time
+        permissao:
+          type: string
+          enum:
+            - ADMIN
+            - SECRETARIO
+        consultas:
+          type: array
+          items:
+            $ref: "#/components/schemas/Consulta"
