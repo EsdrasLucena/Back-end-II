@@ -1,6 +1,7 @@
 package br.com.esdraslucena.medicalconsult.consulta.services;
 
 import br.com.esdraslucena.medicalconsult.consulta.domain.Consulta;
+import br.com.esdraslucena.medicalconsult.usuario.domain.Permissao;
 import br.com.esdraslucena.medicalconsult.usuario.domain.Usuario;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,10 @@ public class ConsultaService {
                 () -> new ObjectNotFoundException("Consulta nao encontrada: ", id));*/
     }
 
-    public void deletarConsulta (Long id){
+    public void deletarConsulta (Long id, String permissaoUsuario){
+        if (!"ADMIN".equals(permissaoUsuario)) { // Verifica a permissão do usuário
+            throw new SecurityException("Usuário não tem permissão para realizar esta ação."); // Lança uma exceção
+        }
         buscarConsulta(id);
         try{
             ConsultaRepository.deleteById(id);
